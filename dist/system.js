@@ -114,8 +114,8 @@ class System extends base_system_1.BaseSystem {
         let overlapX = 0;
         let overlapY = 0;
         let collided = false;
-        (0, optimized_1.forEach)(convexBodiesA, convexBodyA => {
-            (0, optimized_1.forEach)(convexBodiesB, convexBodyB => {
+        (0, optimized_1.forEach)(convexBodiesA, (convexBodyA) => {
+            (0, optimized_1.forEach)(convexBodiesB, (convexBodyB) => {
                 // always first clear response
                 response.clear();
                 if (sat(convexBodyA, convexBodyB, response)) {

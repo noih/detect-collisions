@@ -4231,8 +4231,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
          * for groups
          */
         function getGroup(group) {
-          const limited = Math.max(0, Math.min(group, 0x7fffffff));
-          return (limited << 16) | limited;
+          return Math.max(0, Math.min(group, 0x7fffffff));
         }
         exports.getGroup = getGroup;
         /**
@@ -5225,7 +5224,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
             switch (variant) {
               case 0:
                 if (this.enableFiltering) {
-                  options.group = BodyGroup.Circle;
+                  options.group = (BodyGroup.Circle << 16) | BodyGroup.Circle;
                 }
                 body = this.physics.createCircle(
                   { x, y },
@@ -5240,7 +5239,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
                 const width = random(minSize, maxSize);
                 const height = random(minSize, maxSize);
                 if (this.enableFiltering) {
-                  options.group = BodyGroup.Ellipse;
+                  options.group = (BodyGroup.Ellipse << 16) | BodyGroup.Ellipse;
                   console.log();
                 }
                 body = this.physics.createEllipse(
@@ -5256,7 +5255,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
 
               case 2:
                 if (this.enableFiltering) {
-                  options.group = BodyGroup.Box;
+                  options.group = (BodyGroup.Box << 16) | BodyGroup.Box;
                 }
                 body = this.physics.createBox(
                   { x, y },
@@ -5270,7 +5269,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
 
               case 3:
                 if (this.enableFiltering) {
-                  options.group = BodyGroup.Line;
+                  options.group = (BodyGroup.Line << 16) | BodyGroup.Line;
                 }
                 body = this.physics.createLine(
                   { x, y },
@@ -5286,7 +5285,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
 
               default:
                 if (this.enableFiltering) {
-                  options.group = BodyGroup.Polygon;
+                  options.group = (BodyGroup.Polygon << 16) | BodyGroup.Polygon;
                 }
                 body = this.physics.createPolygon(
                   { x, y },

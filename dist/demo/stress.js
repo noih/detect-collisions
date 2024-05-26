@@ -155,7 +155,7 @@ class Stress {
         switch (variant) {
             case 0:
                 if (this.enableFiltering) {
-                    options.group = BodyGroup.Circle;
+                    options.group = (BodyGroup.Circle << 16) | BodyGroup.Circle;
                 }
                 body = this.physics.createCircle({ x, y }, random(minSize, maxSize) / 2, options);
                 ++this.circles;
@@ -164,7 +164,7 @@ class Stress {
                 const width = random(minSize, maxSize);
                 const height = random(minSize, maxSize);
                 if (this.enableFiltering) {
-                    options.group = BodyGroup.Ellipse;
+                    options.group = (BodyGroup.Ellipse << 16) | BodyGroup.Ellipse;
                     console.log();
                 }
                 body = this.physics.createEllipse({ x, y }, width, height, 2, options);
@@ -172,14 +172,14 @@ class Stress {
                 break;
             case 2:
                 if (this.enableFiltering) {
-                    options.group = BodyGroup.Box;
+                    options.group = (BodyGroup.Box << 16) | BodyGroup.Box;
                 }
                 body = this.physics.createBox({ x, y }, random(minSize, maxSize), random(minSize, maxSize), options);
                 ++this.boxes;
                 break;
             case 3:
                 if (this.enableFiltering) {
-                    options.group = BodyGroup.Line;
+                    options.group = (BodyGroup.Line << 16) | BodyGroup.Line;
                 }
                 body = this.physics.createLine({ x, y }, {
                     x: x + random(minSize, maxSize),
@@ -189,7 +189,7 @@ class Stress {
                 break;
             default:
                 if (this.enableFiltering) {
-                    options.group = BodyGroup.Polygon;
+                    options.group = (BodyGroup.Polygon << 16) | BodyGroup.Polygon;
                 }
                 body = this.physics.createPolygon({ x, y }, [
                     { x: -random(minSize, maxSize), y: random(minSize, maxSize) },

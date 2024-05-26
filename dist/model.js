@@ -29,8 +29,7 @@ var BodyType;
  * for groups
  */
 function getGroup(group) {
-    const limited = Math.max(0, Math.min(group, 0x7FFFFFFF));
-    return (limited << 16) | limited;
+    return Math.max(0, Math.min(group, 0x7fffffff));
 }
 exports.getGroup = getGroup;
 /**

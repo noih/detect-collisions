@@ -157,7 +157,7 @@ class Polygon extends sat_1.Polygon {
             minX: pos.x,
             minY: pos.y,
             maxX: pos.x + w,
-            maxY: pos.y + h
+            maxY: pos.y + h,
         };
     }
     /**

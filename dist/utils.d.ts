@@ -88,7 +88,7 @@ export declare function dashLineTo(context: CanvasRenderingContext2D, fromX: num
 /**
  * draw polygon
  */
-export declare function drawPolygon(context: CanvasRenderingContext2D, { pos, calcPoints }: Pick<Polygon | SATPolygon, "calcPoints"> & {
+export declare function drawPolygon(context: CanvasRenderingContext2D, { pos, calcPoints, }: Pick<Polygon | SATPolygon, "calcPoints"> & {
     pos: Vector;
 }, isTrigger?: boolean): void;
 /**

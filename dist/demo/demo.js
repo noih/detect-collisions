@@ -2463,7 +2463,7 @@ class Circle extends sat_1.Circle {
             minX: x - this.r,
             maxX: x + this.r,
             minY: y - this.r,
-            maxY: y + this.r
+            maxY: y + this.r,
         };
     }
     /**
@@ -2664,7 +2664,7 @@ class Line extends polygon_1.Polygon {
     constructor(start, end, options) {
         super(start, [
             { x: 0, y: 0 },
-            { x: end.x - start.x, y: end.y - start.y }
+            { x: end.x - start.x, y: end.y - start.y },
         ], options);
         /**
          * line type
@@ -2686,7 +2686,7 @@ class Line extends polygon_1.Polygon {
     get start() {
         return {
             x: this.x + this.calcPoints[0].x,
-            y: this.y + this.calcPoints[0].y
+            y: this.y + this.calcPoints[0].y,
         };
     }
     set start({ x, y }) {
@@ -2696,7 +2696,7 @@ class Line extends polygon_1.Polygon {
     get end() {
         return {
             x: this.x + this.calcPoints[1].x,
-            y: this.y + this.calcPoints[1].y
+            y: this.y + this.calcPoints[1].y,
         };
     }
     set end({ x, y }) {
@@ -2922,7 +2922,7 @@ class Polygon extends sat_1.Polygon {
             minX: pos.x,
             minY: pos.y,
             maxX: pos.x + w,
-            maxY: pos.y + h
+            maxY: pos.y + h,
         };
     }
     /**
@@ -3101,15 +3101,15 @@ function ensureConvex(body) {
 }
 exports.ensureConvex = ensureConvex;
 function polygonInCircle(polygon, circle) {
-    return (0, optimized_1.every)(polygon.calcPoints, p => (0, sat_1.pointInCircle)({ x: p.x + polygon.pos.x, y: p.y + polygon.pos.y }, circle));
+    return (0, optimized_1.every)(polygon.calcPoints, (p) => (0, sat_1.pointInCircle)({ x: p.x + polygon.pos.x, y: p.y + polygon.pos.y }, circle));
 }
 exports.polygonInCircle = polygonInCircle;
 function pointInPolygon(point, polygon) {
-    return (0, optimized_1.some)(ensureConvex(polygon), convex => (0, sat_1.pointInPolygon)(point, convex));
+    return (0, optimized_1.some)(ensureConvex(polygon), (convex) => (0, sat_1.pointInPolygon)(point, convex));
 }
 exports.pointInPolygon = pointInPolygon;
 function polygonInPolygon(polygonA, polygonB) {
-    return (0, optimized_1.every)(polygonA.calcPoints, point => pointInPolygon({ x: point.x + polygonA.pos.x, y: point.y + polygonA.pos.y }, polygonB));
+    return (0, optimized_1.every)(polygonA.calcPoints, (point) => pointInPolygon({ x: point.x + polygonA.pos.x, y: point.y + polygonA.pos.y }, polygonB));
 }
 exports.polygonInPolygon = polygonInPolygon;
 /**
@@ -3152,12 +3152,12 @@ function circleInPolygon(circle, polygon) {
     // Necessary add polygon pos to points
     const points = (0, optimized_1.map)(polygon.calcPoints, ({ x, y }) => ({
         x: x + polygon.pos.x,
-        y: y + polygon.pos.y
+        y: y + polygon.pos.y,
     }));
     // If the center of the circle is within the polygon,
     // the circle is not outside of the polygon completely.
     // so return false.
-    if ((0, optimized_1.some)(points, point => (0, sat_1.pointInCircle)(point, circle))) {
+    if ((0, optimized_1.some)(points, (point) => (0, sat_1.pointInCircle)(point, circle))) {
         return false;
     }
     // If any line-segment of the polygon intersects the circle,
@@ -3191,12 +3191,12 @@ function circleOutsidePolygon(circle, polygon) {
     // Necessary add polygon pos to points
     const points = (0, optimized_1.map)(polygon.calcPoints, ({ x, y }) => ({
         x: x + polygon.pos.x,
-        y: y + polygon.pos.y
+        y: y + polygon.pos.y,
     }));
     // If the center of the circle is within the polygon,
     // the circle is not outside of the polygon completely.
     // so return false.
-    if ((0, optimized_1.some)(points, point => (0, sat_1.pointInCircle)(point, circle) || pointOnCircle(point, circle))) {
+    if ((0, optimized_1.some)(points, (point) => (0, sat_1.pointInCircle)(point, circle) || pointOnCircle(point, circle))) {
         return false;
     }
     // If any line-segment of the polygon intersects the circle,
@@ -3291,7 +3291,7 @@ function intersectLinePolygon(line, polygon) {
             : polygon.calcPoints[polygon.calcPoints.length - 1];
         const side = {
             start: { x: from.x + polygon.pos.x, y: from.y + polygon.pos.y },
-            end: { x: to.x + polygon.pos.x, y: to.y + polygon.pos.y }
+            end: { x: to.x + polygon.pos.x, y: to.y + polygon.pos.y },
         };
         const hit = intersectLineLine(line, side);
         if (hit) {
@@ -3343,8 +3343,7 @@ var BodyType;
  * for groups
  */
 function getGroup(group) {
-    const limited = Math.max(0, Math.min(group, 0x7FFFFFFF));
-    return (limited << 16) | limited;
+    return Math.max(0, Math.min(group, 0x7fffffff));
 }
 exports.getGroup = getGroup;
 /**
@@ -3569,8 +3568,8 @@ class System extends base_system_1.BaseSystem {
         let overlapX = 0;
         let overlapY = 0;
         let collided = false;
-        (0, optimized_1.forEach)(convexBodiesA, convexBodyA => {
-            (0, optimized_1.forEach)(convexBodiesB, convexBodyB => {
+        (0, optimized_1.forEach)(convexBodiesA, (convexBodyA) => {
+            (0, optimized_1.forEach)(convexBodiesB, (convexBodyB) => {
                 // always first clear response
                 response.clear();
                 if (sat(convexBodyA, convexBodyB, response)) {
@@ -3654,7 +3653,7 @@ const testMap = {
     inCircleCircle: intersect_1.circleInCircle,
     inCirclePolygon: intersect_1.circleInPolygon,
     inPolygonCircle: intersect_1.polygonInCircle,
-    inPolygonPolygon: intersect_1.polygonInPolygon
+    inPolygonPolygon: intersect_1.polygonInPolygon,
 };
 function createMap(bodyType, testType) {
     return Object.values(model_1.BodyType).reduce((result, type) => (Object.assign(Object.assign({}, result), { [type]: type === model_1.BodyType.Circle
@@ -3705,7 +3704,7 @@ function createBox(width, height) {
         new sat_1.Vector(0, 0),
         new sat_1.Vector(width, 0),
         new sat_1.Vector(width, height),
-        new sat_1.Vector(0, height)
+        new sat_1.Vector(0, height),
     ];
 }
 exports.createBox = createBox;
@@ -3755,7 +3754,7 @@ function extendBody(body, options = {}) {
     body.isStatic = !!options.isStatic;
     body.isTrigger = !!options.isTrigger;
     body.padding = options.padding || 0;
-    body.group = typeof options.group === "number" ? options.group : 0x7FFFFFFF;
+    body.group = typeof options.group === "number" ? options.group : 0x7fffffff;
     if (body.typeGroup !== model_1.BodyGroup.Circle) {
         body.isCentered = options.isCentered || false;
     }
@@ -3791,8 +3790,8 @@ exports.intersectAABB = intersectAABB;
  * checks if two bodies can interact (for collision filtering)
  */
 function areSameGroup(bodyA, bodyB) {
-    return (((bodyA.group >> 16) & (bodyB.group & 0xFFFF) &&
-        (bodyB.group >> 16) & (bodyA.group & 0xFFFF)) !== 0);
+    return (((bodyA.group >> 16) & (bodyB.group & 0xffff) &&
+        (bodyB.group >> 16) & (bodyA.group & 0xffff)) !== 0);
 }
 exports.areSameGroup = areSameGroup;
 /**
@@ -3871,7 +3870,7 @@ exports.dashLineTo = dashLineTo;
 /**
  * draw polygon
  */
-function drawPolygon(context, { pos, calcPoints }, isTrigger = false) {
+function drawPolygon(context, { pos, calcPoints, }, isTrigger = false) {
     const lastPoint = calcPoints[calcPoints.length - 1];
     const fromX = pos.x + lastPoint.x;
     const fromY = pos.y + lastPoint.y;
@@ -3900,7 +3899,7 @@ exports.drawPolygon = drawPolygon;
 function drawBVH(context, body) {
     drawPolygon(context, {
         pos: { x: body.minX, y: body.minY },
-        calcPoints: createBox(body.maxX - body.minX, body.maxY - body.minY)
+        calcPoints: createBox(body.maxX - body.minX, body.maxY - body.minY),
     });
 }
 exports.drawBVH = drawBVH;
@@ -4236,7 +4235,7 @@ class Stress {
     switch (variant) {
       case 0:
         if (this.enableFiltering) {
-          options.group = BodyGroup.Circle;
+          options.group = (BodyGroup.Circle << 16) | BodyGroup.Circle;
         }
         body = this.physics.createCircle(
           { x, y },
@@ -4251,7 +4250,7 @@ class Stress {
         const width = random(minSize, maxSize);
         const height = random(minSize, maxSize);
         if (this.enableFiltering) {
-          options.group = BodyGroup.Ellipse;
+          options.group = (BodyGroup.Ellipse << 16) | BodyGroup.Ellipse;
           console.log();
         }
         body = this.physics.createEllipse({ x, y }, width, height, 2, options);
@@ -4261,7 +4260,7 @@ class Stress {
 
       case 2:
         if (this.enableFiltering) {
-          options.group = BodyGroup.Box;
+          options.group = (BodyGroup.Box << 16) | BodyGroup.Box;
         }
         body = this.physics.createBox(
           { x, y },
@@ -4275,7 +4274,7 @@ class Stress {
 
       case 3:
         if (this.enableFiltering) {
-          options.group = BodyGroup.Line;
+          options.group = (BodyGroup.Line << 16) | BodyGroup.Line;
         }
         body = this.physics.createLine(
           { x, y },
@@ -4291,7 +4290,7 @@ class Stress {
 
       default:
         if (this.enableFiltering) {
-          options.group = BodyGroup.Polygon;
+          options.group = (BodyGroup.Polygon << 16) | BodyGroup.Polygon;
         }
         body = this.physics.createPolygon(
           { x, y },
