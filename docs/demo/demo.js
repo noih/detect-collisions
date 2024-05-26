@@ -4459,7 +4459,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
             const { bbox: bboxB } = bodyA;
             // assess the bodies real aabb without padding
             if (
-              !(0, utils_1.areSameGroup)(bodyA, bodyB) ||
+              !(0, utils_1.canInteract)(bodyA, bodyB) ||
               !bboxA ||
               !bboxB ||
               (0, utils_1.notIntersectAABB)(bboxA, bboxB)
@@ -4561,7 +4561,7 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
           exports.mapVectorToArray =
           exports.clonePointsArray =
           exports.checkAInB =
-          exports.areSameGroup =
+          exports.canInteract =
           exports.intersectAABB =
           exports.notIntersectAABB =
           exports.bodyMoved =
@@ -4749,13 +4749,13 @@ which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
         /**
          * checks if two bodies can interact (for collision filtering)
          */
-        function areSameGroup(bodyA, bodyB) {
+        function canInteract(bodyA, bodyB) {
           return (
             ((bodyA.group >> 16) & (bodyB.group & 0xffff) &&
               (bodyB.group >> 16) & (bodyA.group & 0xffff)) !== 0
           );
         }
-        exports.areSameGroup = areSameGroup;
+        exports.canInteract = canInteract;
         /**
          * checks if body a is in body b
          */

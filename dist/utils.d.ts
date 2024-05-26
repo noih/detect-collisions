@@ -56,7 +56,7 @@ export declare function intersectAABB(bodyA: BBox, bodyB: BBox): boolean;
 /**
  * checks if two bodies can interact (for collision filtering)
  */
-export declare function areSameGroup(bodyA: Body, bodyB: Body): boolean;
+export declare function canInteract(bodyA: Body, bodyB: Body): boolean;
 /**
  * checks if body a is in body b
  */

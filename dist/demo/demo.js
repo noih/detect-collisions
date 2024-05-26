@@ -3549,7 +3549,7 @@ class System extends base_system_1.BaseSystem {
         const { bbox: bboxA } = bodyA;
         const { bbox: bboxB } = bodyA;
         // assess the bodies real aabb without padding
-        if (!(0, utils_1.areSameGroup)(bodyA, bodyB) ||
+        if (!(0, utils_1.canInteract)(bodyA, bodyB) ||
             !bboxA ||
             !bboxB ||
             (0, utils_1.notIntersectAABB)(bboxA, bboxB)) {
@@ -3639,7 +3639,7 @@ exports.System = System;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.bin2dec = exports.returnTrue = exports.cloneResponse = exports.drawBVH = exports.drawPolygon = exports.dashLineTo = exports.getSATTest = exports.getBounceDirection = exports.mapArrayToVector = exports.mapVectorToArray = exports.clonePointsArray = exports.checkAInB = exports.areSameGroup = exports.intersectAABB = exports.notIntersectAABB = exports.bodyMoved = exports.extendBody = exports.clockwise = exports.distance = exports.ensurePolygonPoints = exports.ensureVectorPoint = exports.createBox = exports.createEllipse = exports.rad2deg = exports.deg2rad = exports.RAD2DEG = exports.DEG2RAD = void 0;
+exports.bin2dec = exports.returnTrue = exports.cloneResponse = exports.drawBVH = exports.drawPolygon = exports.dashLineTo = exports.getSATTest = exports.getBounceDirection = exports.mapArrayToVector = exports.mapVectorToArray = exports.clonePointsArray = exports.checkAInB = exports.canInteract = exports.intersectAABB = exports.notIntersectAABB = exports.bodyMoved = exports.extendBody = exports.clockwise = exports.distance = exports.ensurePolygonPoints = exports.ensureVectorPoint = exports.createBox = exports.createEllipse = exports.rad2deg = exports.deg2rad = exports.RAD2DEG = exports.DEG2RAD = void 0;
 const sat_1 = __webpack_require__(/*! sat */ "./node_modules/sat/SAT.js");
 const intersect_1 = __webpack_require__(/*! ./intersect */ "./src/intersect.ts");
 const model_1 = __webpack_require__(/*! ./model */ "./src/model.ts");
@@ -3789,11 +3789,11 @@ exports.intersectAABB = intersectAABB;
 /**
  * checks if two bodies can interact (for collision filtering)
  */
-function areSameGroup(bodyA, bodyB) {
+function canInteract(bodyA, bodyB) {
     return (((bodyA.group >> 16) & (bodyB.group & 0xffff) &&
         (bodyB.group >> 16) & (bodyA.group & 0xffff)) !== 0);
 }
-exports.areSameGroup = areSameGroup;
+exports.canInteract = canInteract;
 /**
  * checks if body a is in body b
  */
